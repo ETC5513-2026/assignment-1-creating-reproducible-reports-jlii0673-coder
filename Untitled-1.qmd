@@ -1,0 +1,35 @@
+---
+title: "The Impact of Personalized Marketing Spend on Customer Purchase Amount"
+author: "Jingye Li"
+format:
+  html:
+    toc: true
+  pdf:
+    toc: true
+editor: visual
+execute: 
+  echo: false
+  warning: false
+  message: false
+---
+# Introduction
+This report analyzes the relationship between marketing expenditures and customer purchase behavior in the previous quarter’s personalized campaign. Firms often allocate budget to ads, emails, and coupons to drive sales, but the effectiveness of increased spending remains unclear. Understanding whether higher spending translates to higher purchases can optimize future marketing investments. This analysis uses data to provide data-driven insights for budget decisions.
+
+# Research Question
+Does higher per-customer marketing spending lead to higher individual purchase amounts? We specifically examine whether increased investment in personalized marketing directly correlates with higher customer purchase values across different customer segments.
+
+# Dataset Introduction
+The dataset contains customer-level records including marketing spend, purchase amount, customer segment, and other campaign details. The cleaning process removed missing values and invalid non-positive records to ensure reliable analysis. Only complete and valid observations are used.
+
+```{r}
+library(tidyverse)
+library(knitr)
+library(ggplot2)
+raw_data <- read_csv("data/35741899_Jingye Li.csv")
+clean_data <- raw_data %>%
+  drop_na(marketing_spend, purchase_amount) |>
+  filter(purchase_amount > 0, marketing_spend > 0) |>
+  select(customer_id, marketing_spend, purchase_amount, segment)
+```
+
+## Dataset Description
