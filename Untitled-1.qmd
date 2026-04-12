@@ -54,3 +54,25 @@ clean_data %>%
 ```
 
 This table shows descriptive statistics for marketing_spend and purchase_amount, which helps understand the central tendency and spread of the two key variables.
+# Results section
+The research question asks whether higher marketing spending leads to higher purchase amounts. To answer this, two figures are created to visualize the relationship between the key variables.
+```{r}
+#| fig-cap: "Figure 1: Relationship between Marketing Spend and Purchase Amount"
+ggplot(clean_data, aes(x = marketing_spend, y = purchase_amount)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  labs(x = "Marketing Spend", y = "Purchase Amount")
+```
+
+Figure 1 shows a clear positive linear relationship between marketing spend and purchase amount. As marketing spend increases, purchase amount tends to increase as well. The linear regression line confirms the upward trend.
+
+```{r}
+#| fig-cap: "Figure 2: Purchase Amount Distribution by Customer Segment"
+ggplot(clean_data, aes(x = segment, y = purchase_amount, fill = segment)) +
+  geom_boxplot(alpha = 0.7) +
+  labs(x = "Customer Segment", y = "Purchase Amount")
+```
+
+Figure 2 shows the distribution of purchase amounts across the three customer segments: Consumer, Enterprise, and SMB. Enterprise customers have the highest median purchase amount, reaching approximately 280, and the widest range of purchase values, with the largest box and extending to nearly 340. In contrast, Consumer and SMB customers have lower and more similar median purchase amounts, around 160 and 140 respectively, with narrower value ranges. This indicates that while the overall positive correlation between marketing spend and purchase amount holds for all groups, Enterprise customers drive the highest purchase volumes and show the greatest variability in spending behavior.
+
+In summary, the visualizations clearly demonstrate a strong positive relationship between marketing spend and purchase amount. As shown in Figure 1, increased marketing spending is consistently associated with higher purchase amounts, confirming a clear upward trend. Figure 2 further reveals that Enterprise customers generate the highest purchase values, while Consumer and SMB customers show more stable spending patterns. The average marketing spend for all customers is `r round(mean(clean_data$marketing_spend), 2)`,  and the average purchase amount is  `r round(mean(clean_data$purchase_amount), 2)`. Together, these findings directly answer the research question by providing strong evidence that higher marketing spending leads to higher purchase amounts.
