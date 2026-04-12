@@ -33,3 +33,24 @@ clean_data <- raw_data %>%
 ```
 
 ## Dataset Description
+The cleaned dataset contains `r nrow(clean_data)`observations and  `r ncol(clean_data)`  variables. Variable types include character (customer_id, segment) and numeric (marketing_spend, purchase_amount), which support the analysis of marketing spend and purchase behavior.
+
+```{r}
+ggplot(clean_data, aes(x = marketing_spend)) +
+  geom_histogram(binwidth = 15, fill = "black", colour = "white") +
+  labs(
+    x = "marketing_spend",
+    y = "Count"
+  )
+```
+
+The marketing expenditure ranges from 0 to 300 and is relatively evenly distributed. This suggests that the marketing campaign covers a wide range of spending levels, which helps ensure a more comprehensive analysis of the relationship between marketing investment and revenue.
+
+```{r}
+clean_data %>%
+  select(marketing_spend, purchase_amount) %>%
+  summary() %>%
+  kable(caption = "Table 1: Summary Statistics of Key Numeric Variables")
+```
+
+This table shows descriptive statistics for marketing_spend and purchase_amount, which helps understand the central tendency and spread of the two key variables.
